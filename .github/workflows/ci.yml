@@ -1,0 +1,51 @@
+name: Deployment Preview CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  spring-build:
+    name: Build Spring Boot Backend
+    runs-on: ubuntu-latest
+    container: gradle:jdk15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compile Spring Boot JAR
+        run: |
+          gradle build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: spring-build-artifact
+          path: ./spring-java/build/libs/*-SNAPSHOT.jar
+
+  deploy:
+    name: Deploy To Preview Server
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    container: alpine
+    needs: [spring-build]
+    env:
+      REMOTE_SFTP_LOGIN: ${{ secrets.REMOTE_SFTP_LOGIN }}
+      REMOTE_SSH_ARGS: ${{ secrets.REMOTE_SSH_ARGS }}
+      REMOTE_SSH_PASSWORD: ${{ secrets.REMOTE_SSH_PASSWORD }}
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          path: .
+
+      - name: Install packages
+        run: |
+          apk add openssh-client sshpass lftp
+      - name: Upload artifacts to server
+        run: |
+          lftp -e "set sftp:auto-confirm yes; open $REMOTE_SFTP_LOGIN; mput -e -O /mnt ./spring-build-artifact/*-SNAPSHOT.jar; bye"
+      - name: Restart Spring Boot Runtime at server
+        run: |
+          sshpass -p $REMOTE_SSH_PASSWORD ssh $REMOTE_SSH_ARGS -o StrictHostKeyChecking=no "(kill -9 \$(cat /mnt/Shopkoapi.pid) || true) && while kill -0 \$(cat /mnt/Shopko.pid); do sleep 1; done && nohup /mnt/start.sh > /dev/null"
+
