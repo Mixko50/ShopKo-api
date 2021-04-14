@@ -47,5 +47,5 @@ jobs:
           lftp -e "set sftp:auto-confirm yes; open $REMOTE_SFTP_LOGIN; mput -e -O /mnt ./spring-build-artifact/*-SNAPSHOT.jar; bye"
       - name: Restart Spring Boot Runtime at server
         run: |
-          sshpass -p $REMOTE_SSH_PASSWORD ssh $REMOTE_SSH_ARGS -o StrictHostKeyChecking=no "(kill -9 \$(cat /mnt/Shopkoapi.pid) || true) && while kill -0 \$(cat /mnt/Shopko.pid); do sleep 1; done && nohup /mnt/start.sh > /dev/null"
+          sshpass -p $REMOTE_SSH_PASSWORD ssh $REMOTE_SSH_ARGS -o StrictHostKeyChecking=no "(kill -9 \$(cat /mnt/Shopko.pid) || true) && while kill -0 \$(cat /mnt/Shopko.pid); do sleep 1; done && nohup /mnt/start.sh > /dev/null"
 
