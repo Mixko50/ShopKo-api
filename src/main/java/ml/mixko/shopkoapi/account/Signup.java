@@ -28,12 +28,12 @@ public class Signup {
             preparedStatement.setString(4,phone);
             preparedStatement.setString(5,password);
             preparedStatement.setString(6,email);
+            preparedStatement.execute();
             res.put("Success",true);
         } catch (Exception e){
             e.printStackTrace();
             res.put("Success",false);
         }
-
         return res;
     }
 }
