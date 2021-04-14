@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: spring-build-artifact
-          path: ./spring-java/build/libs/*-SNAPSHOT.jar
+          path: ./build/libs/*-SNAPSHOT.jar
 
   deploy:
     name: Deploy To Preview Server
