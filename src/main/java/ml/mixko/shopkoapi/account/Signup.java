@@ -2,13 +2,11 @@ package ml.mixko.shopkoapi.account;
 
 
 import ml.mixko.shopkoapi.database.MySQL;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,5 +33,41 @@ public class Signup {
             res.put("Success",false);
         }
         return res;
+    }
+
+    @GetMapping("/checkusername")
+    public Map<String, Object> checkusername(@RequestParam String username){
+        Map<String, Object> check = new HashMap<>();
+        try {
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username = ?");
+            preparedStatement.setString(1,username);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            check.put("username",rs.getString("username"));
+            check.put("checkusername", true);
+        } catch (Exception e){
+            e.printStackTrace();
+            check.put("checkusername", false);
+        }
+        return check;
+    }
+
+    @GetMapping("/checkemail")
+    public Map<String, Object> checkemail(@RequestParam String email){
+        Map<String, Object> check = new HashMap<>();
+        try {
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email = ?");
+            preparedStatement.setString(1,email);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            check.put("email",rs.getString("email"));
+            check.put("checkEmail", true);
+        } catch (Exception e){
+            e.printStackTrace();
+            check.put("checkEmail", false);
+        }
+        return check;
     }
 }
