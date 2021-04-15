@@ -45,10 +45,10 @@ public class Signup {
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
             check.put("username",rs.getString("username"));
-            check.put("checkusername", true);
+            check.put("checkUsername", true);
         } catch (Exception e){
             e.printStackTrace();
-            check.put("checkusername", false);
+            check.put("checkUsername", false);
         }
         return check;
     }
