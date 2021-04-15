@@ -1,6 +1,7 @@
 package ml.mixko.shopkoapi.account;
 
 
+import ml.mixko.shopkoapi.utils.JWTUtil;
 import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class Login {
             statement.setString(2,password);
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
+                String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
                 System.out.println("Success");
                 login.put("isLoginSuccess", true);
                 login.put("username", username);
@@ -37,6 +39,7 @@ public class Login {
                 login.put("lastname",rs.getString("lastname"));
                 login.put("gender",rs.getString("gender"));
                 login.put("birthdate",rs.getDate("birthdate"));
+                login.put("token",jwt);
             }else {
                 System.out.println("Fail");
                 login.put("isLoginSuccess", false);

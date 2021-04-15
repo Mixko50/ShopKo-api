@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class JWTUtil  {
     private static final long VALIDITY = 3 * 24 * 60 * 60 * 1000; // 3 days
-    private static final Key KEY = Keys.hmacShaKeyFor("mixko50countingstar".getBytes());
+    private static final Key KEY = Keys.hmacShaKeyFor("mixko50countingstar/ItsukiNakanoMiyawakiSakura".getBytes());
 
     // While creating the token -
     // 1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
