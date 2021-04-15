@@ -1,7 +1,7 @@
 package ml.mixko.shopkoapi.account;
 
 
-import ml.mixko.shopkoapi.database.MySQL;
+import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;

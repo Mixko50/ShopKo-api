@@ -1,4 +1,4 @@
-package ml.mixko.shopkoapi.database;
+package ml.mixko.shopkoapi.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

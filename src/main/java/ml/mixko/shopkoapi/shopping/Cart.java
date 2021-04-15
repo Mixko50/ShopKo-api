@@ -1,7 +1,7 @@
 package ml.mixko.shopkoapi.shopping;
 
 
-import ml.mixko.shopkoapi.database.MySQL;
+import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
