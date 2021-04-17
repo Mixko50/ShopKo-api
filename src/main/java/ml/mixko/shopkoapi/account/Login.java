@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/account")
 public class Login {
     @GetMapping(path = "/login")
-    public Map<String, Object> login(@RequestParam String username, String password){
+    public Map<String, Object> login(@RequestParam String username, @RequestParam String password, HttpServletResponse response){
         Map<String, Object> login = new HashMap<>();
 
         try {
@@ -32,10 +34,13 @@ public class Login {
                 System.out.println("Success");
                 login.put("isLoginSuccess", true);
                 login.put("token",jwt);
+                Cookie cookie = new Cookie("jwt",jwt);
+                response.addCookie(cookie);
             }else {
                 System.out.println("Fail");
                 login.put("isLoginSuccess", false);
             }
+
         } catch (Exception e) {
             System.out.println("Error");
         }
