@@ -43,7 +43,7 @@ public class Signup {
         return res;
     }
 
-    @GetMapping("/checkusername")
+    @PostMapping("/checkusername")
     public Map<String, Object> checkusername(@RequestParam String username) {
         Map<String, Object> check = new HashMap<>();
         try {
@@ -52,7 +52,6 @@ public class Signup {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            check.put("username", rs.getString("username"));
             check.put("checkUsername", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +60,7 @@ public class Signup {
         return check;
     }
 
-    @GetMapping("/checkemail")
+    @PostMapping("/checkemail")
     public Map<String, Object> checkemail(@RequestParam String email) {
         Map<String, Object> check = new HashMap<>();
         try {
@@ -70,7 +69,6 @@ public class Signup {
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            check.put("email", rs.getString("email"));
             check.put("checkEmail", true);
         } catch (Exception e) {
             e.printStackTrace();
