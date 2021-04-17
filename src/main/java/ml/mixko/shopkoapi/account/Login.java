@@ -3,10 +3,7 @@ package ml.mixko.shopkoapi.account;
 
 import ml.mixko.shopkoapi.utils.JWTUtil;
 import ml.mixko.shopkoapi.utils.MySQL;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/account")
 public class Login {
-    @GetMapping(path = "/login")
+    @PostMapping(path = "/login")
     public Map<String, Object> login(@RequestParam String username, @RequestParam String password, HttpServletResponse response){
         Map<String, Object> login = new HashMap<>();
 
