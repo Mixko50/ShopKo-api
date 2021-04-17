@@ -51,8 +51,14 @@ public class Signup {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE username = ?");
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            check.put("checkUsername", true);
+            if (rs.next()){
+                if (rs.getString("username").equals(username)){
+                    check.put("checkUsername",true);
+                }
+            } else {
+                check.put("checkUsername",false);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             check.put("checkUsername", false);
@@ -68,8 +74,14 @@ public class Signup {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email = ?");
             preparedStatement.setString(1, email);
             ResultSet rs = preparedStatement.executeQuery();
-            rs.next();
-            check.put("checkEmail", true);
+            if (rs.next()){
+                if (rs.getString("email").equals(email)){
+                    check.put("checkEmail", true);
+                }
+            } else {
+                check.put("checkEmail", false);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             check.put("checkEmail", false);
