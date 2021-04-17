@@ -31,14 +31,6 @@ public class Login {
                 String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
                 System.out.println("Success");
                 login.put("isLoginSuccess", true);
-                login.put("username", username);
-                login.put("password", password);
-                login.put("email",rs.getString("email"));
-                login.put("phone_number",rs.getString("phone_number"));
-                login.put("firstname",rs.getString("firstname"));
-                login.put("lastname",rs.getString("lastname"));
-                login.put("gender",rs.getString("gender"));
-                login.put("birthdate",rs.getDate("birthdate"));
                 login.put("token",jwt);
             }else {
                 System.out.println("Fail");
