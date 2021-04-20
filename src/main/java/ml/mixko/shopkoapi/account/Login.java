@@ -1,6 +1,5 @@
 package ml.mixko.shopkoapi.account;
 
-
 import ml.mixko.shopkoapi.utils.JWTUtil;
 import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +41,35 @@ public class Login {
             System.out.println("Error");
         }
         return login;
+    }
+
+    @PostMapping("/fetch")
+    public Map<String, Object> fetch(@CookieValue String jwt){
+        Map<String, Object> res = new HashMap<>();
+        String userid;
+        try {
+            userid = JWTUtil.parseToken(jwt);
+        } catch (Exception e){
+            res.put("isLoggedIn",false);
+            return res;
+        }
+        res.put("isLoggedIn",true);
+        res.put("userId",userid);
+        try {
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE id = ?");
+            preparedStatement.setInt(1,Integer.parseInt(userid));
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            res.put("firstname",rs.getString("firstname"));
+            res.put("lastname",rs.getString("lastname"));
+            res.put("username",rs.getString("username"));
+            res.put("email",rs.getString("email"));
+            res.put("phone",rs.getString("phone_number"));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 }

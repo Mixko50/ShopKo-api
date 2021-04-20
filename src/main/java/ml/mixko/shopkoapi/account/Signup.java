@@ -38,7 +38,6 @@ public class Signup {
                 res.put("success", false);
                 res.put("note", "Error");
             }
-
         }
         return res;
     }
@@ -58,7 +57,6 @@ public class Signup {
             } else {
                 check.put("checkUsername",false);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             check.put("checkUsername", false);
@@ -81,7 +79,6 @@ public class Signup {
             } else {
                 check.put("checkEmail", false);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             check.put("checkEmail", false);
