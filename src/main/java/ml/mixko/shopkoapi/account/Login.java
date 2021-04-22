@@ -28,13 +28,13 @@ public class Login {
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
-                System.out.println("Success");
+                System.out.println("Login Success");
                 login.put("isLoginSuccess", true);
                 login.put("token",jwt);
                 Cookie cookie = new Cookie("jwt",jwt);
                 response.addCookie(cookie);
             }else {
-                System.out.println("Fail");
+                System.out.println("Login Fail");
                 login.put("isLoginSuccess", false);
             }
 
@@ -66,7 +66,11 @@ public class Login {
             res.put("firstname",rs.getString("firstname"));
             res.put("lastname",rs.getString("lastname"));
             res.put("email",rs.getString("email"));
-            res.put("profilepic",rs.getString("user_pic"));
+            if (rs.getString("user_pic") == "" || rs.getString("user_pic") == null){
+                res.put("profilepic","https://storage.googleapis.com/shopko/user/pink_default_img.jpeg");
+            } else {
+                res.put("profilepic",rs.getString("user_pic"));
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -97,4 +101,5 @@ public class Login {
         }
         return res;
     }
+
 }
