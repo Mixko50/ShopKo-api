@@ -102,4 +102,34 @@ public class Login {
         return res;
     }
 
+    @PostMapping("/address")
+    public Map<String, Object> address(@CookieValue String jwt){
+        Map<String, Object> res = new HashMap<>();
+        String userid;
+        try {
+            userid = JWTUtil.parseToken(jwt);
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM address WHERE user_id = ?");
+            preparedStatement.setInt(1,Integer.parseInt(userid));
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            if (rs.getString("name") == null){
+                res.put("address",false);
+            } else {
+                res.put("address",true);
+                res.put("name",rs.getString("name"));
+                res.put("province",rs.getString("province"));
+                res.put("district",rs.getString("district"));
+                res.put("sub_district",rs.getString("sub_district"));
+                res.put("post",rs.getString("post"));
+                res.put("house_number",rs.getString("house_number"));
+                res.put("details",rs.getString("details"));
+                res.put("phone",rs.getString("phone_number"));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return res;
+    }
+
 }
