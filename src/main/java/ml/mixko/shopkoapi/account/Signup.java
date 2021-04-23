@@ -1,6 +1,7 @@
 package ml.mixko.shopkoapi.account;
 
 
+import ml.mixko.shopkoapi.DTO.SignUpDTO;
 import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,19 +16,20 @@ import java.util.Map;
 @RequestMapping("/account")
 public class Signup {
     @PostMapping("/signup")
-    public Map<String, Object> signup(@RequestParam String firstname, @RequestParam String lastname, @RequestParam String username, @RequestParam String phone, @RequestParam String password, @RequestParam String email) {
+    public Map<String, Object> signup(@RequestBody SignUpDTO signup) {
         Map<String, Object> res = new HashMap<>();
 
         try {
             Connection connection = MySQL.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `user` (`id`, `firstname`, `lastname`, `username`, `phone_number`, `gender`, `birthdate`, `password`, `email`, `user_pic`, `type`) VALUES (NULL, ?, ?, ?, ?, NULL, NULL, ?, ?, NULL, 'normal') ");
-            preparedStatement.setString(1, firstname);
-            preparedStatement.setString(2, lastname);
-            preparedStatement.setString(3, username);
-            preparedStatement.setString(4, phone);
-            preparedStatement.setString(5, password);
-            preparedStatement.setString(6, email);
+            preparedStatement.setString(1, signup.getFirstname());
+            preparedStatement.setString(2, signup.getLastname());
+            preparedStatement.setString(3, signup.getUsername());
+            preparedStatement.setString(4, signup.getPhone());
+            preparedStatement.setString(5, signup.getPassword());
+            preparedStatement.setString(6, signup.getEmail());
             preparedStatement.execute();
+            System.out.println("Sign up success");
             res.put("success", true);
         } catch (Exception e) {
             if (e instanceof SQLIntegrityConstraintViolationException) {
