@@ -42,4 +42,20 @@ public class ProfileSetting {
             e.printStackTrace();
         }
     }
+
+    @PostMapping(path = "/profile/email")
+    public void changeEmail(@CookieValue String jwt, @RequestBody ProfileDTo profile){
+        String userId;
+        try {
+            userId = JWTUtil.parseToken(jwt);
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET email = ? WHERE user.id = ?");
+            preparedStatement.setString(1,profile.getEmail());
+            preparedStatement.setInt(2,Integer.parseInt(userId));
+            preparedStatement.executeUpdate();
+            System.out.println("Change email successfully");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
