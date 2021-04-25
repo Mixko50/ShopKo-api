@@ -90,4 +90,20 @@ public class ProfileSetting {
             e.printStackTrace();
         }
     }
+
+    @PostMapping(path = "/profile/birthdate")
+    public void changeBirthdate(@CookieValue String jwt, @RequestBody ProfileDTo profile){
+        String userId;
+        try {
+            userId = JWTUtil.parseToken(jwt);
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET birthdate = ? WHERE user.id = ?");
+            preparedStatement.setString(1,profile.getBirthdate());
+            preparedStatement.setInt(2,Integer.parseInt(userId));
+            preparedStatement.executeUpdate();
+            System.out.println("Change birthdate success");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
