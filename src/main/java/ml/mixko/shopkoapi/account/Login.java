@@ -34,6 +34,7 @@ public class Login {
                 login.put("isLoginSuccess", true);
                 login.put("token",jwt);
                 Cookie cookie = new Cookie("jwt",jwt);
+                cookie.setPath("/");
                 response.addCookie(cookie);
             }else {
                 System.out.println("Login Fail");
@@ -68,7 +69,7 @@ public class Login {
             res.put("lastname",rs.getString("lastname"));
             res.put("email",rs.getString("email"));
             if (rs.getString("user_pic") == "" || rs.getString("user_pic") == null){
-                res.put("profilepic","https://storage.googleapis.com/shopko/user/pink_default_img.jpeg");
+                res.put("profilepic","https://storage.googleapis.com/shopko/user/default_img.JPG");
             } else {
                 res.put("profilepic",rs.getString("user_pic"));
             }
@@ -129,6 +130,7 @@ public class Login {
                     user.put("house_number", rs.getString("house_number"));
                     user.put("details", rs.getString("details"));
                     user.put("phone", rs.getString("phone_number"));
+                    user.put("id",rs.getInt("id"));
                     arrAddress.add(user);
                 }
                 res.put("information",arrAddress);

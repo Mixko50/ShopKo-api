@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/setting")
 public class ChangePassword {
     @PostMapping("/changepassword/check")
     public Map<String, Object> checkpassword(@CookieValue String jwt, @RequestBody ChangePasswordDTO password){
@@ -49,7 +49,6 @@ public class ChangePassword {
             Connection connection = MySQL.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE `user` SET `password` = ? WHERE `user`.`id` = ?");
             userID = JWTUtil.parseToken(jwt);
-            System.out.println(userID);
             preparedStatement.setString(1,password.getNewPassword());
             preparedStatement.setInt(2,Integer.parseInt(userID));
             preparedStatement.execute();
