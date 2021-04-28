@@ -2,9 +2,12 @@ package ml.mixko.shopkoapi.account;
 
 
 import ml.mixko.shopkoapi.DTO.SignUpDTO;
+import ml.mixko.shopkoapi.utils.JWTUtil;
 import ml.mixko.shopkoapi.utils.MySQL;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/account")
 public class Signup {
     @PostMapping("/signup")
-    public Map<String, Object> signup(@RequestBody SignUpDTO signup) {
+    public Map<String, Object> signup(@RequestBody SignUpDTO signup, HttpServletResponse response) {
         Map<String, Object> res = new HashMap<>();
 
         try {
@@ -30,6 +33,14 @@ public class Signup {
             preparedStatement.setString(6, signup.getEmail());
             preparedStatement.execute();
             System.out.println("Sign up success");
+//            preparedStatement = connection.prepareStatement("SELECT * from username = ?");
+//            preparedStatement.setString(1,signup.getUsername());
+//            ResultSet rs = preparedStatement.executeQuery();
+//            String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
+//            Cookie cookie = new Cookie("jwt",jwt);
+//            cookie.setPath("/");
+//            response.addCookie(cookie);
+//            res.put("token",jwt);
             res.put("success", true);
         } catch (Exception e) {
             if (e instanceof SQLIntegrityConstraintViolationException) {
