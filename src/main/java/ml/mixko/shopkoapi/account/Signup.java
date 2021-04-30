@@ -33,14 +33,15 @@ public class Signup {
             preparedStatement.setString(6, signup.getEmail());
             preparedStatement.execute();
             System.out.println("Sign up success");
-//            preparedStatement = connection.prepareStatement("SELECT * from username = ?");
-//            preparedStatement.setString(1,signup.getUsername());
-//            ResultSet rs = preparedStatement.executeQuery();
-//            String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
-//            Cookie cookie = new Cookie("jwt",jwt);
-//            cookie.setPath("/");
-//            response.addCookie(cookie);
-//            res.put("token",jwt);
+            preparedStatement = connection.prepareStatement("SELECT * from user WHERE username = ?");
+            preparedStatement.setString(1,signup.getUsername());
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            String jwt = JWTUtil.generateToken(rs.getInt("id")+"");
+            Cookie cookie = new Cookie("jwt",jwt);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            res.put("token",jwt);
             res.put("success", true);
         } catch (Exception e) {
             if (e instanceof SQLIntegrityConstraintViolationException) {
