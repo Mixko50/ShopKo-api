@@ -35,6 +35,7 @@ public class ProductDetail {
                 res.put("image",rs.getString("image"));
                 res.put("category_id",rs.getInt("category_id"));
                 res.put("details",rs.getString("details"));
+                res.put("image",rs.getString("image"));
             } else {
                 res.put("isFound",false);
             }

@@ -28,7 +28,7 @@ public class ProductHomePage {
                 product.put("id",rs.getInt("id"));
                 product.put("title",rs.getString("title"));
                 product.put("price",rs.getString("price"));
-                product.put("sold",rs.getString("price"));
+                product.put("sold",rs.getString("sold"));
                 product.put("img",rs.getString("image"));
                 arrProduct.add(product);
             }

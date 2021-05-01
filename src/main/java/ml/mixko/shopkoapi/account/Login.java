@@ -67,6 +67,7 @@ public class Login {
             res.put("firstname",rs.getString("firstname"));
             res.put("lastname",rs.getString("lastname"));
             res.put("email",rs.getString("email"));
+            res.put("type",rs.getString("type"));
             if (rs.getString("user_pic") == "" || rs.getString("user_pic") == null){
                 res.put("profilepic","https://storage.googleapis.com/shopko/user/default_img.JPG");
             } else {
