@@ -51,12 +51,13 @@ public class Cart {
                 res.put("isFound",true);
                 Map<String, Object> product = new HashMap<>();
                 product.put("title",rs.getString("title"));
+                product.put("total_price",rs.getDouble("price")*rs.getInt("quantity_pick"));
                 product.put("price",rs.getDouble("price"));
                 product.put("quantity_pick",rs.getInt("quantity_pick"));
                 product.put("id",rs.getInt("cart_item.id"));
                 product.put("image",rs.getString("image"));
                 arrayList.add(product);
-                total+=rs.getDouble("price");
+                total+=rs.getDouble("price")*rs.getInt("quantity_pick");
                 count++;
             }
             System.out.println(count);
