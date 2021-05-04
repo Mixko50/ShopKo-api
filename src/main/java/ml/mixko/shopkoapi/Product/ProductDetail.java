@@ -1,10 +1,8 @@
 package ml.mixko.shopkoapi.Product;
 
+import ml.mixko.shopkoapi.utils.JWTUtil;
 import ml.mixko.shopkoapi.utils.MySQL;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,5 +41,20 @@ public class ProductDetail {
             e.printStackTrace();
         }
         return res;
+    }
+
+    @PostMapping ("/addtocart")
+    public void addToCart(@CookieValue String jwt, @RequestParam int productId, @RequestParam int quantity){
+        try {
+            Connection connection = MySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO cart_item (id, user_id, product_id, quantity_pick) VALUE (NULL , ?, ?, ?)");
+            preparedStatement.setInt(1, Integer.parseInt(JWTUtil.parseToken(jwt)));
+            preparedStatement.setInt(2,productId);
+            preparedStatement.setInt(3,quantity);
+            preparedStatement.execute();
+            System.out.println("Add to cart successfully");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
