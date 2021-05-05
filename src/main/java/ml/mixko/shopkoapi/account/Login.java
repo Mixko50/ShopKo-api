@@ -32,6 +32,9 @@ public class Login {
                 System.out.println("Login Success");
                 login.put("isLoginSuccess", true);
                 login.put("token",jwt);
+                Cookie cookie = new Cookie("jwt",jwt);
+                cookie.setPath("/");
+                response.addCookie(cookie);
             }else {
                 System.out.println("Login Fail");
                 login.put("isLoginSuccess", false);
@@ -44,7 +47,6 @@ public class Login {
 
     @PostMapping("/fetch")
     public Map<String, Object> fetch(@CookieValue String jwt){
-        System.out.println(jwt);
         Map<String, Object> res = new HashMap<>();
         String userid;
         try {
