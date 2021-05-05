@@ -44,6 +44,7 @@ public class Login {
 
     @PostMapping("/fetch")
     public Map<String, Object> fetch(@CookieValue String jwt){
+        System.out.println(jwt);
         Map<String, Object> res = new HashMap<>();
         String userid;
         try {
