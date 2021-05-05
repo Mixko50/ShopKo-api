@@ -32,9 +32,6 @@ public class Login {
                 System.out.println("Login Success");
                 login.put("isLoginSuccess", true);
                 login.put("token",jwt);
-                Cookie cookie = new Cookie("jwt",jwt);
-                cookie.setPath("/");
-                response.addCookie(cookie);
             }else {
                 System.out.println("Login Fail");
                 login.put("isLoginSuccess", false);
