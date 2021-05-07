@@ -57,11 +57,12 @@ public class CheckoutOne {
             ResultSet rs = preparedStatement.getGeneratedKeys();
             rs.next();
             int generatedKey = rs.getInt(1);
-            preparedStatement = connection.prepareStatement("INSERT INTO order_item (id, product_id, quantity, price, order_id) VALUES (NULL, ?, ?, ?, ? )");
+            preparedStatement = connection.prepareStatement("INSERT INTO order_item (id, product_id, quantity, price, order_id, user_id) VALUES (NULL, ?, ?, ?, ?, ? )");
             preparedStatement.setInt(1, productId);
             preparedStatement.setInt(2, quantity);
             preparedStatement.setDouble(3, price);
             preparedStatement.setInt(4, generatedKey);
+            preparedStatement.setInt(5,Integer.parseInt(userId));
             preparedStatement.execute();
             System.out.println("Confirm order one successfully");
             res.put("order",true);

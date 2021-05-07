@@ -42,12 +42,13 @@ public class CheckoutAll {
                 preparedStatementPrice = connection.prepareStatement("SELECT * FROM `cart_item` INNER JOIN product ON product.id = product_id");
                 rsPrice = preparedStatementPrice.executeQuery();
                 rsPrice.next();
-                preparedStatementInsertProduct = connection.prepareStatement("INSERT INTO order_item (id, product_id, quantity, price, order_id) VALUES (NULL, ?, ?, ?, ? )");
+                preparedStatementInsertProduct = connection.prepareStatement("INSERT INTO order_item (id, product_id, quantity, price, order_id, user_id) VALUES (NULL, ?, ?, ?, ?, ?)");
                 preparedStatementInsertProduct.setInt(1,rs.getInt("product_id"));
                 preparedStatementInsertProduct.setInt(2,rs.getInt("quantity_pick"));
                 double totalPrice = rsPrice.getDouble("price")*rs.getInt("quantity_pick");
                 preparedStatementInsertProduct.setDouble(3,totalPrice);
                 preparedStatementInsertProduct.setInt(4,generatedKey);
+                preparedStatementInsertProduct.setInt(5,Integer.parseInt(userId));
                 preparedStatementInsertProduct.execute();
             }
             preparedStatement = connection.prepareStatement("DELETE FROM cart_item WHERE user_id = ?");
