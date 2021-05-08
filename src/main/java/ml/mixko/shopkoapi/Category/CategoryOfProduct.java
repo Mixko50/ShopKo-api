@@ -16,7 +16,6 @@ public class CategoryOfProduct {
     @GetMapping("/categoryproduct")
     public Map<String, Object> category(@RequestParam String category, @RequestParam double min, @RequestParam double max, @RequestParam boolean recommend){
         Map<String, Object> res = new HashMap<>();
-        System.out.println(category);
         int id;
         try {
             Connection connection = MySQL.getConnection();

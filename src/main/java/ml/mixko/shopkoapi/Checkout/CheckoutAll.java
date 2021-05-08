@@ -37,6 +37,8 @@ public class CheckoutAll {
             rs = preparedStatement.executeQuery();
             PreparedStatement preparedStatementPrice;
             PreparedStatement preparedStatementInsertProduct;
+            PreparedStatement preparedStatementUpdateSold;
+            ResultSet rsUpdateSold;
             ResultSet rsPrice;
             while (rs.next()) {
                 preparedStatementPrice = connection.prepareStatement("SELECT * FROM `cart_item` INNER JOIN product ON product.id = product_id");
@@ -44,13 +46,28 @@ public class CheckoutAll {
                 rsPrice.next();
                 preparedStatementInsertProduct = connection.prepareStatement("INSERT INTO order_item (id, product_id, quantity, price, order_id, user_id) VALUES (NULL, ?, ?, ?, ?, ?)");
                 preparedStatementInsertProduct.setInt(1,rs.getInt("product_id"));
+                int productId = rs.getInt("product_id");
                 preparedStatementInsertProduct.setInt(2,rs.getInt("quantity_pick"));
+                int quantity = rsPrice.getInt("quantity_pick");
                 double totalPrice = rsPrice.getDouble("price")*rs.getInt("quantity_pick");
                 preparedStatementInsertProduct.setDouble(3,totalPrice);
                 preparedStatementInsertProduct.setInt(4,generatedKey);
                 preparedStatementInsertProduct.setInt(5,Integer.parseInt(userId));
                 preparedStatementInsertProduct.execute();
+
+                //Update sold
+                preparedStatementUpdateSold = connection.prepareStatement("SELECT * FROM product WHERE id = ?");
+                preparedStatementUpdateSold.setInt(1,productId);
+                rsUpdateSold = preparedStatementUpdateSold.executeQuery();
+                rsUpdateSold.next();
+                System.out.println(rsUpdateSold.getInt("sold"));
+                int sold = rsUpdateSold.getInt("sold");
+                preparedStatementUpdateSold = connection.prepareStatement("UPDATE product SET sold = ? WHERE id = ?");
+                preparedStatementUpdateSold.setInt(1,sold+quantity);
+                preparedStatementUpdateSold.setInt(2,productId);
+                preparedStatementUpdateSold.execute();
             }
+            //Delete cart_item from userid
             preparedStatement = connection.prepareStatement("DELETE FROM cart_item WHERE user_id = ?");
             preparedStatement.setInt(1,Integer.parseInt(userId));
             preparedStatement.execute();

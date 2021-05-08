@@ -65,6 +65,16 @@ public class CheckoutOne {
             preparedStatement.setInt(5,Integer.parseInt(userId));
             preparedStatement.execute();
             System.out.println("Confirm order one successfully");
+
+            preparedStatement = connection.prepareStatement("SELECT sold FROM product WHERE id = ?");
+            preparedStatement.setInt(1,productId);
+            rs = preparedStatement.executeQuery();
+            rs.next();
+            int sold = rs.getInt("sold");
+            preparedStatement = connection.prepareStatement("UPDATE product SET sold = ? WHERE id = ?");
+            preparedStatement.setInt(1,sold+quantity);
+            preparedStatement.setInt(2,productId);
+            preparedStatement.execute();
             res.put("order",true);
             return res;
         } catch (Exception e) {
