@@ -1,10 +1,7 @@
 package ml.mixko.shopkoapi.Category;
 
 import ml.mixko.shopkoapi.utils.MySQL;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/categories")
 public class CategoryOfProduct {
     @GetMapping("/categoryproduct")
-    public Map<String, Object> category(@RequestParam String category){
+    public Map<String, Object> category(@RequestParam String category, @RequestParam double min, @RequestParam double max, @RequestParam boolean recommend){
         Map<String, Object> res = new HashMap<>();
         System.out.println(category);
         int id;
@@ -30,6 +27,17 @@ public class CategoryOfProduct {
                 id = rs.getInt("id");
                 ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
                 preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ?");
+                if (max != 0 || min != 0){
+                    if (recommend){
+                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price > ? AND price < ? ORDER BY sold DESC ");
+                    } else {
+                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price > ? AND price < ?");
+                    }
+                    preparedStatement.setDouble(2,min);
+                    preparedStatement.setDouble(3,max);
+                } else if (recommend){
+                    preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? ORDER BY sold DESC");
+                }
                 preparedStatement.setInt(1,id);
                 rs = preparedStatement.executeQuery();
                 res.put("isFound",true);
