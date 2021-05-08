@@ -31,4 +31,17 @@ public class JWTUtil  {
         return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(jws).getBody().getSubject();
     }
 
+    public static String generateResetPasswordToken(String subject) {
+        return Jwts
+                .builder()
+                .setSubject(subject).setIssuer("resetPassword")
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
+                .signWith(KEY)
+                .compact();
+    }
+
+    public static String parseResetPasswordToken(String jws) throws JwtException {
+        return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(jws).getBody().getSubject();
+    }
 }
