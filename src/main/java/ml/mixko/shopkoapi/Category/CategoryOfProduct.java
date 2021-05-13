@@ -28,9 +28,9 @@ public class CategoryOfProduct {
                 preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ?");
                 if (max != 0 || min != 0){
                     if (recommend){
-                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price > ? AND price < ? ORDER BY sold DESC ");
+                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price >= ? AND price <= ? ORDER BY sold DESC ");
                     } else {
-                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price > ? AND price < ?");
+                        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id = ? AND price >= ? AND price <= ?");
                     }
                     preparedStatement.setDouble(2,min);
                     preparedStatement.setDouble(3,max);
