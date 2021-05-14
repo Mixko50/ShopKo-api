@@ -45,7 +45,6 @@ public class Cart {
             ResultSet rs = preparedStatement.executeQuery();
             ArrayList<Map<String, Object>> arrayList = new ArrayList<>();
             int count = 0;
-            System.out.println("Cart counting!");
             double total = 0;
             while (rs.next()){
                 res.put("isFound",true);
@@ -60,7 +59,6 @@ public class Cart {
                 total+=rs.getDouble("price")*rs.getInt("quantity_pick");
                 count++;
             }
-            System.out.println(count);
             res.put("productInCart",count);
             res.put("total",total);
             res.put("information",arrayList);

@@ -21,8 +21,9 @@ public class ShippngCode {
             preparedStatement.setString(1,shippingCode);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()){
-                if (rs.getInt("quantity") == 0){
+                if (rs.getInt("quantity") <= 0){
                     res.put("isFound", false);
+                    return res;
                 }
                 res.put("isFound", true);
             } else {

@@ -32,7 +32,6 @@ public class ProductHomePage {
                 product.put("img",rs.getString("image"));
                 arrProduct.add(product);
             }
-            System.out.println("Product found!");
             res.put("product",arrProduct);
         } catch (Exception e) {
             e.printStackTrace();
