@@ -73,6 +73,8 @@ public class CheckoutAll {
             preparedStatement.execute();
             res.put("order",true);
             System.out.println("Confirm order all successfully");
+            connection.close();
+            preparedStatement.close();
             return res;
         } catch (Exception e){
             res.put("order",false);

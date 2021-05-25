@@ -33,6 +33,8 @@ public class ProductHomePage {
                 arrProduct.add(product);
             }
             res.put("product",arrProduct);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

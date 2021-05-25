@@ -22,6 +22,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.execute();
             System.out.println("Change firstname success");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -38,6 +40,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.executeUpdate();
             System.out.println("Change lastname success");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -54,6 +58,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.executeUpdate();
             System.out.println("Change email successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -70,6 +76,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.executeUpdate();
             System.out.println("Change phone number success");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -86,6 +94,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.executeUpdate();
             System.out.println("Change gender success");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -102,6 +112,8 @@ public class EditProfile {
             preparedStatement.setInt(2,Integer.parseInt(userId));
             preparedStatement.executeUpdate();
             System.out.println("Change birthdate success");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

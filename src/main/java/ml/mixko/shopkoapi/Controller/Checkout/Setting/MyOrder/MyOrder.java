@@ -39,6 +39,8 @@ public class MyOrder {
                 productArrayList.add(product);
             }
             res.put("information",productArrayList);
+            connection.close();
+            preparedStatement.close();
             return res;
         } catch (Exception e){
             res.put("isFound",false);

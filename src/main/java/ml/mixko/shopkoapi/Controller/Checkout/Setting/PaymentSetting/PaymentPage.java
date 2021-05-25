@@ -40,6 +40,8 @@ public class PaymentPage {
                 }
                 res.put("information", arrPayment);
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e) {
             res.put("payment", false);
             e.printStackTrace();

@@ -21,7 +21,8 @@ public class DeleteAddress {
             preparedStatement.setInt(1,address.getId());
             preparedStatement.execute();
             System.out.println("Delete address successfully");
-
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

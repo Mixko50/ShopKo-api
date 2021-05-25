@@ -29,7 +29,8 @@ public class AddAddress {
             preparedStatement.setInt(9,Integer.parseInt(userId));
             preparedStatement.execute();
             System.out.println("Add address successfully");
-
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

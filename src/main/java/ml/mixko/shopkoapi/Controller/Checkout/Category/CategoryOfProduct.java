@@ -57,6 +57,8 @@ public class CategoryOfProduct {
                 res.put("isFound",false);
                 return res;
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isFound",false);
             e.printStackTrace();

@@ -20,7 +20,6 @@ public class Login {
     @PostMapping(path = "/login")
     public Map<String, Object> login(@RequestBody LoginDTO loginInformation, HttpServletResponse response){
         Map<String, Object> login = new HashMap<>();
-
         try {
             Connection connection = MySQL.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
@@ -39,6 +38,8 @@ public class Login {
                 System.out.println("Login Fail");
                 login.put("isLoginSuccess", false);
             }
+            connection.close();
+            statement.close();
         } catch (Exception e) {
             System.out.println("Error");
         }
@@ -73,6 +74,8 @@ public class Login {
             } else {
                 res.put("profilepic",rs.getString("user_pic"));
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

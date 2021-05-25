@@ -26,6 +26,8 @@ public class UpdateShippingCode {
             preparedStatement.setInt(1,quantity-1);
             preparedStatement.setString(2,shippingCode);
             preparedStatement.execute();
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

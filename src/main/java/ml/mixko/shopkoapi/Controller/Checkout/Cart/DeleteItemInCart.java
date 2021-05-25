@@ -21,6 +21,8 @@ public class DeleteItemInCart {
             preparedStatement.setInt(1,id);
             preparedStatement.execute();
             System.out.println("Delete item in cart successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

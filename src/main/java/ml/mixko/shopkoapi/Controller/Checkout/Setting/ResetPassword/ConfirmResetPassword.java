@@ -25,6 +25,8 @@ public class ConfirmResetPassword {
             preparedStatement.execute();
             res.put("isChanged" ,true);
             System.out.println("Reset password successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isChanged" ,false);
             e.printStackTrace();

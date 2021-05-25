@@ -30,7 +30,8 @@ public class UpdateAddress {
             preparedStatement.execute();
             System.out.println(address.getId());
             System.out.println("Update address successfully");
-
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

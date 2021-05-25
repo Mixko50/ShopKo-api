@@ -36,6 +36,8 @@ public class Search {
             }
             System.out.println("Product found!");
             res.put("product", arrProduct);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -21,6 +21,8 @@ public class DeletePayment {
             preparedStatement.setInt(1,payment.getId());
             preparedStatement.execute();
             System.out.println("Delete payment successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

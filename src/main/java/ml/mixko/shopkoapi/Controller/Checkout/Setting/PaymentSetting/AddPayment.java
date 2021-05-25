@@ -26,6 +26,8 @@ public class AddPayment {
             preparedStatement.setInt(6,Integer.parseInt(userId));
             preparedStatement.execute();
             System.out.println("Add payment successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

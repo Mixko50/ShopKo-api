@@ -43,6 +43,8 @@ public class Signup {
             response.addCookie(cookie);
             res.put("token",jwt);
             res.put("success", true);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e) {
             if (e instanceof SQLIntegrityConstraintViolationException) {
                 res.put("success", false);
@@ -93,6 +95,8 @@ public class Signup {
             } else {
                 check.put("checkEmail", false);
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e) {
             e.printStackTrace();
             check.put("checkEmail", false);

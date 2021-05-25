@@ -26,7 +26,8 @@ public class ChangePassword {
             preparedStatement.execute();
             System.out.println("password changed!");
             res.put("isChanged",true);
-
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isChanged",false);
             e.printStackTrace();

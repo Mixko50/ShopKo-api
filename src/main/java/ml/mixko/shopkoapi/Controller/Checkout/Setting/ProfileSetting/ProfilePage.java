@@ -37,6 +37,8 @@ public class ProfilePage {
             res.put("gender",rs.getString("gender"));
             SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
             res.put("birthdate", sdf.format(rs.getDate("birthdate")));
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

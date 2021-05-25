@@ -33,7 +33,8 @@ public class CheckPassword {
                 System.out.println("password incorrect");
                 res.put("isChecked",false);
             }
-
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isChecked",false);
             e.printStackTrace();

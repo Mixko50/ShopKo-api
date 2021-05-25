@@ -29,6 +29,8 @@ public class CheckShippngCode {
             } else {
                 res.put("isFound", false);
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isFound", false);
             e.printStackTrace();

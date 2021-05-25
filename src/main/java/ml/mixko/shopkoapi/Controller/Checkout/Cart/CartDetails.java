@@ -46,6 +46,8 @@ public class CartDetails {
             res.put("productInCart",count);
             res.put("total",total);
             res.put("information",arrayList);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isFound",false);
             e.printStackTrace();

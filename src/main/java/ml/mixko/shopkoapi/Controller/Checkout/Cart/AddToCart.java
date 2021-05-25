@@ -24,6 +24,8 @@ public class AddToCart {
             preparedStatement.setInt(3,quantity);
             preparedStatement.execute();
             res.put("Success",true);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
             res.put("Success", false);

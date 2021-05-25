@@ -45,6 +45,8 @@ public class AddressPage {
                 }
                 res.put("information",arrAddress);
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

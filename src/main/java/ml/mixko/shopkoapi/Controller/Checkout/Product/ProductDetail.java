@@ -36,6 +36,8 @@ public class ProductDetail {
             } else {
                 res.put("isFound",false);
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             res.put("isFound",false);
             e.printStackTrace();
@@ -53,6 +55,8 @@ public class ProductDetail {
             preparedStatement.setInt(3,quantity);
             preparedStatement.execute();
             System.out.println("Add to cart successfully");
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

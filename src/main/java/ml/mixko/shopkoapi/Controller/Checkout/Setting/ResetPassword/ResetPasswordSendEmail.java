@@ -48,6 +48,8 @@ public class ResetPasswordSendEmail {
                 res.put("email", false);
                 return res;
             }
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }

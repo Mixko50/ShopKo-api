@@ -32,6 +32,8 @@ public class Catrgories {
             }
             System.out.println("Categories appeared!");
             res.put("information",arrCategories);
+            connection.close();
+            preparedStatement.close();
         } catch (Exception e){
             e.printStackTrace();
         }
